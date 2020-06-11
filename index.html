@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>城市APP</title>
+    <base href="./">
+</head>
+
+<body>
+    <div id="app">
+        <app-index />
+    </div>
+    <script>
+        function getInfoById(dict, id, field) {
+            let result = dict.filter(item => {
+                return item[field] == id
+            })
+
+            return result
+        }
+    </script>
+    <script type="module">
+        import AppIndex from './index.js'
+        if (!customElements.get('app-index')) {
+            customElements.define('app-index', AppIndex);
+        }
+    </script>
+</body>
+
+</html>
