@@ -51,11 +51,13 @@ class Index extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = `
             <style>
+                :host{
+                    min-height:100vh;
+                    display:block;
+                    background-image: linear-gradient(to top,#0af,hsl(200, 100%, 75%))
+                }
                 h1{
                     margin:0
-                }
-                .city-select{
-                    background-color:#D86
                 }
             </style>
             <div class="city-select">
