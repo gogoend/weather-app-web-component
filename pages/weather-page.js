@@ -1,4 +1,8 @@
 import { get } from '../api/index.js'
+import SingleWeatherInfo from '../component/weather-page/single-weather-info.js'
+if(!customElements.get('single-weather-info')){
+    customElements.define('single-weather-info', SingleWeatherInfo)
+}
 
 async function getWeather(cityCode) {
     let { data } = await get('http://restapi.amap.com/v3/weather/weatherInfo', {
@@ -72,41 +76,19 @@ class WeatherPage extends HTMLElement {
         if (weatherInfo && Array.isArray(weatherInfo.forecasts[0].casts)) {
             forecastDOM = weatherInfo.forecasts[0].casts.map((item) => {
                 return `
-                    <li>
-                        <span>${item.date} 星期${item.week === '7' ? '日' : chineseDigi[item.week]}</span>
-                        <section>
-                            <header>
-                                白天
-                                    </header>
-                            <ul>
-                                <li>${item.dayweather}</li>
-                                <li>${item.daytemp}℃</li>
-                                <li>${item.daywind}</li>
-                                <li>${item.daypower}级</li>
-                            </ul>
-                        </section>
-                        <section>
-                            <header>
-                                夜间
-                                    </header>
-                            <ul>
-                                <li>${item.nightweather}</li>
-                                <li>${item.nighttemp}℃</li>
-                                <li>${item.nightwind}</li>
-                                <li>${item.nightpower}级</li>
-                            </ul>
-                        </section>
-                    </li>
+                    <single-weather-info weather-info=${JSON.stringify(item)}></single-weather-info>
                     `
 
             })
         }
 
+        // debugger
+
         this.shadowRoot.innerHTML = `
         <div>
             <section class="weather-app-container">
                 <ul>
-                    ${forecastDOM.join()}
+                    ${forecastDOM.join('')}
                 </ul>
             </section>
         </div>

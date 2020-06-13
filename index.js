@@ -50,6 +50,11 @@ class Index extends HTMLElement {
         this.state={}
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = `
+            <style>
+                .city-select{
+                    background-color:#D86
+                }
+            </style>
             <div class="city-select">
                 <h1></h1>
                 <select></select>
