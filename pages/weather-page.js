@@ -1,7 +1,11 @@
 import { get } from '../api/index.js'
 import SingleWeatherInfo from '../component/weather-page/single-weather-info.js'
+import MainWeatherInfo from '../component/weather-page/main-weather-info.js'
 if(!customElements.get('single-weather-info')){
     customElements.define('single-weather-info', SingleWeatherInfo)
+}
+if(!customElements.get('main-weather-info')){
+    customElements.define('main-weather-info', MainWeatherInfo)
 }
 
 async function getWeather(cityCode) {
@@ -69,12 +73,12 @@ class WeatherPage extends HTMLElement {
         this.cityChange = this.cityChange.bind(this)
 
         let futureForecastDOM = []
-        let todayForecastDOM=''
+        let todayForecast=''
         if (weatherInfo && Array.isArray(weatherInfo.forecasts[0].casts)) {
             futureForecastDOM = weatherInfo.forecasts[0].casts.map((item,index) => {
                 if(index===0){
-                    todayForecastDOM =JSON.stringify(item)
-                }else{
+                    todayForecast = JSON.stringify(item)
+                } else {
                     return `
                     <li><single-weather-info weather-info=${JSON.stringify(item)}></single-weather-info></li>
                     `
@@ -99,9 +103,9 @@ class WeatherPage extends HTMLElement {
         </style>
         <div>
             <section class="weather-app-container">
-                <div>
-                    ${todayForecastDOM}
-                </div>
+                <main>
+                    <main-weather-info weather-info=${todayForecast}></main-weather-info>
+                </main>
                 <ul class="weather-info-list">
                     ${futureForecastDOM.join('')}
                 </ul>

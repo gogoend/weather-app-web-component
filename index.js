@@ -50,14 +50,29 @@ class Index extends HTMLElement {
         this.state={}
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = `
+            <link rel="stylesheet" href="/style/reset.css" />
             <style>
                 :host{
                     min-height:100vh;
                     display:block;
                     background-image: linear-gradient(to top,#0af,hsl(200, 100%, 75%))
                 }
+                .city-select{
+                    display:flex;
+                    height:0.4rem;
+                    padding:0.5em 0;
+                }
                 h1{
+                    display:none;
                     margin:0
+                }
+                .city-select select{
+                    color:#fff;
+                    border:0;
+                    background-color:transparent;
+                    width:20vw;
+                    margin-left:1em;
+                    font-size:1.2em
                 }
             </style>
             <div class="city-select">
