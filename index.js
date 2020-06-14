@@ -51,6 +51,9 @@ class Index extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = `
             <style>
+                h1{
+                    margin:0
+                }
                 .city-select{
                     background-color:#D86
                 }
@@ -76,15 +79,18 @@ class Index extends HTMLElement {
 
         h1El.textContent = this.state.globalCurrentCity.city
 
+        this.globalCityChange()
+
     }
     connectedCallback() {
+        this.selectEl.addEventListener('change',this.globalCityChange.bind(this))
+    }
+    globalCityChange(){
         let h1El = this.shadowRoot.querySelector('h1')
         let weatherPage = this.shadowRoot.querySelector('weather-page')
-        this.selectEl.addEventListener('change',()=>{
-            this.state.globalCurrentCity=getInfoById(cityList,this.selectEl.value,'code')[0]
-            h1El.textContent = this.state.globalCurrentCity.city
-            weatherPage.city=this.state.globalCurrentCity
-        })
+        this.state.globalCurrentCity=getInfoById(cityList,this.selectEl.value,'code')[0]
+        h1El.textContent = this.state.globalCurrentCity.city
+        weatherPage.city=this.state.globalCurrentCity
     }
     disconnectedCallback() {
         console.log(`disconnectedCallback`)

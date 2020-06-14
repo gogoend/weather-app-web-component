@@ -65,30 +65,45 @@ class WeatherPage extends HTMLElement {
     }
     render() {
         let { weatherInfo } = this.state
-        let chineseDigi = [
-            '〇', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'
-        ]
 
         this.cityChange = this.cityChange.bind(this)
 
-        let forecastDOM = []
-
+        let futureForecastDOM = []
+        let todayForecastDOM=''
         if (weatherInfo && Array.isArray(weatherInfo.forecasts[0].casts)) {
-            forecastDOM = weatherInfo.forecasts[0].casts.map((item) => {
-                return `
-                    <single-weather-info weather-info=${JSON.stringify(item)}></single-weather-info>
+            futureForecastDOM = weatherInfo.forecasts[0].casts.map((item,index) => {
+                if(index===0){
+                    todayForecastDOM =JSON.stringify(item)
+                }else{
+                    return `
+                    <li><single-weather-info weather-info=${JSON.stringify(item)}></single-weather-info></li>
                     `
-
+                }
             })
         }
 
         // debugger
 
         this.shadowRoot.innerHTML = `
+        <style>
+        ul.weather-info-list{
+            display:flex;
+            justify-content:space-between;
+            padding:0;
+            margin:0;
+            list-style:none
+        }
+        ul.weather-info-list li{
+            flex-basis:33.33%
+        }
+        </style>
         <div>
             <section class="weather-app-container">
-                <ul>
-                    ${forecastDOM.join('')}
+                <div>
+                    ${todayForecastDOM}
+                </div>
+                <ul class="weather-info-list">
+                    ${futureForecastDOM.join('')}
                 </ul>
             </section>
         </div>
