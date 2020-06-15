@@ -55,7 +55,11 @@ class Index extends HTMLElement {
                 :host{
                     min-height:100vh;
                     display:block;
-                    background-image: linear-gradient(to top,#0af,hsl(200, 100%, 75%))
+                    background-image: radial-gradient(100vh 100vh, #3FA3E6 0%,#66D4FF 100%);
+                    background-image: radial-gradient(100vh 100vh, #d0d0d0 0%,#7f96a2 100%);
+                    background-size: 100vh 300vh;
+                    background-position-y: -50vh;
+                    BACKGROUND-POSITION-X: 50%;
                 }
                 .city-select{
                     display:flex;

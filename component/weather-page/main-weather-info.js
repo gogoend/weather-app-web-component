@@ -17,7 +17,7 @@ class MainWeatherInfo extends HTMLElement {
     }
     render() {
         let { weatherInfo } = this.state
-        weatherInfo = JSON.parse(weatherInfo)
+        if(weatherInfo) weatherInfo = JSON.parse(weatherInfo)
         /*
         {"date":"2020-06-14","week":"7","dayweather":"晴","nightweather":"晴","daytemp":"34","nighttemp":"22","daywind":"西南","nightwind":"西南","daypower":"≤3","nightpower":"≤3"}
         */
