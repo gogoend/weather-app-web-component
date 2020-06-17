@@ -37,14 +37,6 @@ class WeatherPage extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' });
         this.render()
     }
-    async connectedCallback() {
-    }
-    disconnectedCallback() {
-        console.log(`disconnectedCallback`)
-    }
-    attributeChangedCallback(attrName, oldVal, newVal) {
-        console.log(`attributeChangedCallback`)
-    }
     async cityChange(e) {
         let { cachedInfo } = this.state
         let newCity = e.target ? e.target.value : e;

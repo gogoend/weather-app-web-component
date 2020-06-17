@@ -5,14 +5,6 @@ class SingleWeatherInfo extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' });
         this.render()
     }
-    async connectedCallback() {
-    }
-    disconnectedCallback() {
-        console.log(`disconnectedCallback`)
-    }
-    attributeChangedCallback(attrName, oldVal, newVal) {
-        console.log(`attributeChangedCallback`)
-    }
     render() {
         let chineseDigi = [
             '〇', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十'

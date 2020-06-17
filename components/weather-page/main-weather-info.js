@@ -5,11 +5,6 @@ class MainWeatherInfo extends HTMLElement {
         const shadowRoot = this.attachShadow({ mode: 'open' });
     }
     static get observedAttributes() { return ['weather-info'] }
-    async connectedCallback() {
-    }
-    disconnectedCallback() {
-        console.log(`disconnectedCallback`)
-    }
     attributeChangedCallback(attrName, oldVal, newVal) {
         console.log(`attributeChangedCallback`)
         this.state.weatherInfo = newVal
