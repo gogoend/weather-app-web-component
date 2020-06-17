@@ -1,6 +1,6 @@
-import { get } from '../api/index.js'
-import SingleWeatherInfo from '../component/weather-page/single-weather-info.js'
-import MainWeatherInfo from '../component/weather-page/main-weather-info.js'
+import { get } from '../../api/index.js'
+import SingleWeatherInfo from '../../components/weather-page/single-weather-info.js'
+import MainWeatherInfo from '../../components/weather-page/main-weather-info.js'
 if(!customElements.get('single-weather-info')){
     customElements.define('single-weather-info', SingleWeatherInfo)
 }

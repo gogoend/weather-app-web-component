@@ -1,4 +1,4 @@
-import WeatherPage from './pages/weather-page.js'
+import WeatherPage from './pages/weather-page/index.js'
 if (!customElements.get('weather-page')) {
     customElements.define('weather-page', WeatherPage);
 }
@@ -44,7 +44,7 @@ const cityList = [
         code: 540100
     }
 ]
-class Index extends HTMLElement {
+class App extends HTMLElement {
     constructor() {
         super()
         this.state={}
@@ -120,4 +120,4 @@ class Index extends HTMLElement {
     }
 }
 
-export default Index
+export default App
