@@ -1,10 +1,12 @@
 import { get } from '../../api/index.js'
+
 import SingleWeatherInfo from '../../components/weather-page/single-weather-info.js'
 import MainWeatherInfo from '../../components/weather-page/main-weather-info.js'
-if(!customElements.get('single-weather-info')){
+
+if (!customElements.get('single-weather-info')) {
     customElements.define('single-weather-info', SingleWeatherInfo)
 }
-if(!customElements.get('main-weather-info')){
+if (!customElements.get('main-weather-info')) {
     customElements.define('main-weather-info', MainWeatherInfo)
 }
 
@@ -18,14 +20,6 @@ async function getWeather(cityCode) {
     return JSON.parse(data)
 }
 class WeatherPage extends HTMLElement {
-    static get observedAttributes() { return ['city'] }
-    set city(val) {
-        this.state.city = val
-        this.cityChange(this.state.city.code)
-    }
-    get city() {
-        return this.state.city
-    }
     constructor() {
         super()
         this.state = {
@@ -36,6 +30,12 @@ class WeatherPage extends HTMLElement {
         }
         const shadowRoot = this.attachShadow({ mode: 'open' });
         this.render()
+    }
+    cacheInfo(city, info) {
+        this.state.cachedInfo[city] = {
+            updateTime: new Date().getTime(),
+            info
+        }
     }
     async cityChange(e) {
         let { cachedInfo } = this.state
@@ -53,22 +53,17 @@ class WeatherPage extends HTMLElement {
         this.state.weatherInfo = newInfo
         this.render()
     }
-    cacheInfo(city, info) {
-        this.state.cachedInfo[city] = {
-            updateTime: new Date().getTime(),
-            info
-        }
-    }
     render() {
         let { weatherInfo } = this.state
 
         this.cityChange = this.cityChange.bind(this)
 
         let futureForecastDOM = []
-        let todayForecast=''
+        let todayForecast = ''
+
         if (weatherInfo && Array.isArray(weatherInfo.forecasts[0].casts)) {
-            futureForecastDOM = weatherInfo.forecasts[0].casts.map((item,index) => {
-                if(index===0){
+            futureForecastDOM = weatherInfo.forecasts[0].casts.map((item, index) => {
+                if (index === 0) {
                     todayForecast = JSON.stringify(item)
                 } else {
                     return `
@@ -77,8 +72,6 @@ class WeatherPage extends HTMLElement {
                 }
             })
         }
-
-        // debugger
 
         this.shadowRoot.innerHTML = `
         <style>
@@ -104,6 +97,14 @@ class WeatherPage extends HTMLElement {
             </section>
         </div>
         `
+    }
+    static get observedAttributes() { return ['city'] }
+    set city(val) {
+        this.state.city = val
+        this.cityChange(this.state.city.code)
+    }
+    get city() {
+        return this.state.city
     }
 }
 

@@ -4,12 +4,6 @@ class MainWeatherInfo extends HTMLElement {
         this.state = {}
         const shadowRoot = this.attachShadow({ mode: 'open' });
     }
-    static get observedAttributes() { return ['weather-info'] }
-    attributeChangedCallback(attrName, oldVal, newVal) {
-        console.log(`attributeChangedCallback`)
-        this.state.weatherInfo = newVal
-        this.render()
-    }
     render() {
         let { weatherInfo } = this.state
         if(weatherInfo) weatherInfo = JSON.parse(weatherInfo)
@@ -85,6 +79,11 @@ class MainWeatherInfo extends HTMLElement {
             </section>
         </div>
     `
+    }
+    static get observedAttributes() { return ['weather-info'] }
+    attributeChangedCallback(attrName, oldVal, newVal) {
+        this.state.weatherInfo = newVal
+        this.render()
     }
 }
 

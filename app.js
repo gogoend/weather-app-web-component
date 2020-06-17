@@ -44,12 +44,21 @@ const cityList = [
         code: 540100
     }
 ]
+
+function getInfoById(dict, id, field) {
+    let result = dict.filter(item => {
+        return item[field] == id
+    })
+
+    return result
+}
 class App extends HTMLElement {
     constructor() {
         super()
         this.state = {}
         this.attachShadow({ mode: 'open' });
         this.render()
+        this.globalCityChange()
     }
     connectedCallback() {
         this.selectEl.addEventListener('change', this.globalCityChange.bind(this))
@@ -113,8 +122,6 @@ class App extends HTMLElement {
         this.state.globalCurrentCity = getInfoById(cityList, this.selectEl.value, 'code')[0]
 
         h1El.textContent = this.state.globalCurrentCity.city
-
-        this.globalCityChange()
     }
 }
 
