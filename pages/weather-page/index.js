@@ -1,4 +1,4 @@
-import { get } from '../../api/index.js'
+import * as weatherApi from '../../api/weather.js'
 
 import SingleWeatherInfo from '../../components/weather-page/single-weather-info.js'
 import MainWeatherInfo from '../../components/weather-page/main-weather-info.js'
@@ -10,15 +10,6 @@ if (!customElements.get('main-weather-info')) {
     customElements.define('main-weather-info', MainWeatherInfo)
 }
 
-async function getWeather(cityCode) {
-    let { data } = await get('http://restapi.amap.com/v3/weather/weatherInfo', {
-        key: '516786aa1da89347ad99cc19c24488ac',
-        city: cityCode,
-        extensions: 'all'
-    })
-    console.log(JSON.parse(data))
-    return JSON.parse(data)
-}
 class WeatherPage extends HTMLElement {
     constructor() {
         super()
@@ -46,7 +37,7 @@ class WeatherPage extends HTMLElement {
             newInfo = cachedInfo[newCity].info
             // debugger
         } else {
-            newInfo = await getWeather(newCity)
+            newInfo = await weatherApi.getWeather(newCity)
             this.cacheInfo(newCity, newInfo)
         }
 
